@@ -23,6 +23,7 @@
         <form class="attack-form" accept-charset="UNKNOWN"
               method="POST" name="form"
               action="IDOR/login">
+            <input type="hidden" name="csrf_token" value="UNIQUE_CSRF_TOKEN"/>
             <table>
                 <tr>
                     <td>user/pass</td>
@@ -81,9 +82,11 @@
         <form class="attack-form"
               method="POST" name="diff-form"
               action="IDOR/diff-attributes">
+            {% csrf_token %}
             <input name="attributes" type="text" />
             <input name="Submit Diffs" value="Submit Diffs" type="submit" />
         </form>
+
 
         <!-- do not remove the two following div's, this is where your feedback/output will land -->
         <div class="attack-feedback"></div>

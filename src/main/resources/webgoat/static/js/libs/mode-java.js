@@ -571,10 +571,12 @@ var BaseFoldMode = require("./fold_mode").FoldMode;
 var FoldMode = exports.FoldMode = function(commentRegex) {
     if (commentRegex) {
         this.foldingStartMarker = new RegExp(
-            this.foldingStartMarker.source.replace(/\|[^|]*?$/, "|" + commentRegex.start)
+            this.foldingStartMarker.source.replace(/\|[^|]*?$/, "|" + commentRegex.start.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'))
         );
+        // Validate or sanitize commentRegex.end before using it in the RegExp constructor
+        const sanitizedEnd = commentRegex.end.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
         this.foldingStopMarker = new RegExp(
-            this.foldingStopMarker.source.replace(/\|[^|]*?$/, "|" + commentRegex.end)
+            this.foldingStopMarker.source.replace(/\|[^|]*?$/, "|" + sanitizedEnd)
         );
     }
 };

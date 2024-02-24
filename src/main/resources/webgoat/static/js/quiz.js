@@ -19,19 +19,24 @@ $(function () {
             console.log("entry");
             let questionsJson = json;
             var questionsObj = JSON.parse(questionsJson);
-            let html = "";
+            let container = document.getElementById("q_container");
+            container.innerHTML = ""; // Clear the container
             $.each(questionsObj, function(i, obj) {
                 $.each(obj, function(j, quest) {
-                  html += "<div id='question_" + j + "' class='quiz_question' name='question'><p>" + (j+1) + ".&nbsp;" + quest.text + "</p>";
-                  html += "<fieldset>";
+                  let questionDiv = document.createElement('div');
+                  questionDiv.id = 'question_' + j;
+                  questionDiv.className = 'quiz_question';
+                  questionDiv.setAttribute('name', 'question');
+                  questionDiv.innerHTML = "<p>" + (j+1) + ".&nbsp;" + escapeHtml(quest.text) + "</p><fieldset>";
                   $.each(quest.solutions, function(k, solution) {
-                    solution = "Solution " + k + ": " + solution;
-                    html += '<input id="question_' + j + '_' + k + '_input" type="radio" name="question_' + j +'_solution" value="' + solution + '" required><label for="question_' + j + '_' + k + '_input">' + solution + '</label><br>';
+                    solution = "Solution " + k + ": " + escapeHtml(solution);
+                    let inputId = 'question_' + j + '_' + k + '_input';
+                    questionDiv.innerHTML += '<input id="' + inputId + '" type="radio" name="question_' + j +'_solution" value="' + solution + '" required><label for="' + inputId + '">' + solution + '</label><br>';
                   });
-                  html += "</fieldset></div>";
+                  questionDiv.innerHTML += "</fieldset>";
+                  container.appendChild(questionDiv);
                 });
             });
-            document.getElementById("q_container").innerHTML = html;
         }
     }
     client.send();
@@ -57,3 +62,12 @@ function getFeedback(context) {
         }
     }); // end ajax-done
 } // end getFeedback
+
+function escapeHtml(unsafe) {
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+}
