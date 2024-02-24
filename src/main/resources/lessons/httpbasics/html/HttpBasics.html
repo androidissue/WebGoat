@@ -25,6 +25,7 @@
 				<div id="lessonContent">
 					<form accept-charset="UNKNOWN" method="POST" name="form"
 						action="#attack/307/100">
+						{% csrf_token %}
 						Enter Your Name: <input name="person" value="" type="TEXT"/><input
 							name="SUBMIT" value="Go!" type="SUBMIT"/>
 					</form>
@@ -52,6 +53,7 @@
 				<form class="attack-form" accept-charset="UNKNOWN"
 					method="POST" name="form"
 					action="HttpBasics/attack2">
+					{% csrf_token %}
 					<script>
 					    // sample custom javascript in the recommended way ...
 					    // a namespace has been assigned for it, but you can roll your own if you prefer
@@ -84,3 +86,4 @@
 	</div>
 
 </html>
+

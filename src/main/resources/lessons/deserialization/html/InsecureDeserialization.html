@@ -27,6 +27,9 @@
                   method="POST"
                   action="InsecureDeserialization/task">
 
+                <!-- CSRF token should be included in the form -->
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}"/>
+                
                 <input type="textarea" rows="4" cols="40" value="" name="token" placeholder="token"/>
                 <input type="submit" value="Submit" />
 

@@ -72,6 +72,7 @@ class SpoofCookieAssignmentTest extends AssignmentEndpointTest {
   @DisplayName("Lesson completed")
   void success() throws Exception {
     Cookie cookie = new Cookie(COOKIE_NAME, "NjI2MTcwNGI3YTQxNGE1OTU2NzQ2ZDZmNzQ=");
+    cookie.setSecure(true); // Ensure the cookie is only sent over HTTPS
 
     ResultActions result =
         mockMvc.perform(

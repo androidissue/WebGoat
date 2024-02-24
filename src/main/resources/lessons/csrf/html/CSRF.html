@@ -94,12 +94,14 @@
                                   method="POST" name="review-form"
                                   successCallback=""
                                   action="csrf/review">
+                                {% csrf_token %}
                                 <input class="form-control" id="reviewText" name="reviewText" placeholder="Add a Review"
                                        type="text"/>
                                 <input class="form-control" id="reviewStars" name="stars" type="text"/>
                                 <input type="hidden" name="validateReq" value="2aa14227b9a13d0bede0388a7fba9aa9"/>
                                 <input type="submit" name="submit" value="Submit review"/>
                             </form>
+
                             <div class="attack-feedback"></div>
                             <div class="attack-output"></div>
                             <!--<span class="input-group-addon">-->
@@ -214,12 +216,14 @@
               method="POST" name="form2"
               action="csrf/feedback">
 
+            {% csrf_token %}
             Confirm Flag Value:
             <input type="text" length="6" name="confirmFlagVal" value=""/>
 
             <input name="submit" value="Submit" type="submit"/>
 
         </form>
+
         <div class="attack-feedback"></div>
         <div class="attack-output"></div>
     </div>
